@@ -1,0 +1,16 @@
+<mat-card *ngIf="error" class="error-card">
+  <div class="error-content">
+    <mat-icon class="error-icon">error_outline</mat-icon>
+    <div class="error-message">
+      {{ error }}
+    </div>
+    <button
+      *ngIf="dismissible"
+      mat-icon-button
+      (click)="dismiss()"
+      class="dismiss-btn"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</mat-card>

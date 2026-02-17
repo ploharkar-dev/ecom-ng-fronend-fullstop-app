@@ -1,0 +1,68 @@
+<mat-toolbar color="primary" class="app-header">
+  <div class="header-container">
+    <a routerLink="/" class="logo">
+      <span class="logo-text">FULLSTOP</span>
+    </a>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <mat-form-field class="search-field">
+        <mat-label>Search products...</mat-label>
+        <input
+          matInput
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="onSearch()"
+          placeholder="Search..."
+        />
+        <button mat-icon-button matSuffix (click)="onSearch()">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <!-- Right side actions -->
+    <div class="header-actions">
+      <!-- Wishlist -->
+      <a routerLink="/wishlist" mat-icon-button matTooltip="Wishlist">
+        <mat-icon [matBadge]="wishlistItemCount$ | async" matBadgeColor="accent">
+          favorite_border
+        </mat-icon>
+      </a>
+
+      <!-- Cart -->
+      <a routerLink="/cart" mat-icon-button matTooltip="Shopping Cart">
+        <mat-icon [matBadge]="cartItemCount$ | async" matBadgeColor="accent">
+          shopping_cart
+        </mat-icon>
+      </a>
+
+      <!-- User Menu -->
+      <ng-container *ngIf="isAuthenticated$ | async">
+        <button mat-icon-button [matMenuTriggerFor]="userMenu" matTooltip="Account">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item routerLink="/account">
+            <mat-icon>person</mat-icon>
+            <span>My Profile</span>
+          </button>
+          <button mat-menu-item routerLink="/orders">
+            <mat-icon>receipt</mat-icon>
+            <span>My Orders</span>
+          </button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+      </ng-container>
+
+      <!-- Login/Register for guests -->
+      <ng-container *ngIf="!(isAuthenticated$ | async)">
+        <a routerLink="/auth/login" mat-button>Login</a>
+        <a routerLink="/auth/register" mat-raised-button color="accent">Register</a>
+      </ng-container>
+    </div>
+  </div>
+</mat-toolbar>

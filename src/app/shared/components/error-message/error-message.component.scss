@@ -1,0 +1,27 @@
+.error-card {
+  background-color: #ffebee;
+  border-left: 4px solid #c62828;
+  margin-bottom: 1rem;
+
+  .error-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .error-icon {
+      color: #c62828;
+      flex-shrink: 0;
+    }
+
+    .error-message {
+      color: #c62828;
+      flex: 1;
+      font-size: 0.95rem;
+    }
+
+    .dismiss-btn {
+      flex-shrink: 0;
+      color: #c62828;
+    }
+  }
+}
