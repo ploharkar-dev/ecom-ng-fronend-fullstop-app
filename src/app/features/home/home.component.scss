@@ -1,0 +1,149 @@
+.home-container {
+  .hero-section {
+    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 4rem;
+
+    .hero-content {
+      max-width: 600px;
+      margin: 0 auto;
+
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        font-weight: 300;
+
+        @media (max-width: 768px) {
+          font-size: 2rem;
+        }
+      }
+
+      p {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      .cta-button {
+        padding: 0.75rem 2.5rem;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .featured-section,
+  .categories-section {
+    margin-bottom: 4rem;
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #333;
+    }
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+
+    .product-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      }
+
+      img {
+        height: 250px;
+        object-fit: cover;
+      }
+
+      mat-card-content {
+        h3 {
+          font-size: 1.1rem;
+          margin: 0.5rem 0;
+          color: #333;
+        }
+
+        .description {
+          color: #666;
+          font-size: 0.9rem;
+          margin: 0.5rem 0;
+        }
+
+        .product-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 1rem;
+
+          .price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #1976d2;
+          }
+
+          .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.85rem;
+            color: #ff9800;
+
+            .star {
+              font-size: 18px;
+              width: 18px;
+              height: 18px;
+            }
+          }
+        }
+      }
+
+      mat-card-actions {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem;
+
+        a {
+          flex: 1;
+        }
+      }
+    }
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+
+    .category-card {
+      transition: transform 0.3s ease;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      img {
+        height: 200px;
+        object-fit: cover;
+      }
+
+      mat-card-content {
+        padding: 1.5rem;
+        text-align: center;
+
+        h3 {
+          margin: 0;
+          color: #333;
+        }
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
-import { ApiService } from '../../core/services/api.service';
+import { ApiService } from '../../../core/services/api.service';
 
 export interface CartItem {
   id: number;

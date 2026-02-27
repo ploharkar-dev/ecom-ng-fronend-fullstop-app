@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
-import { ApiService } from '../../core/services/api.service';
-import { Product } from '../products/services/products.service';
+import { ApiService } from '../../../core/services/api.service';
+import { Product } from '../../products/services/products.service';
 
 export interface WishlistItem {
   id: number;

@@ -1,0 +1,84 @@
+<div class="product-list-container">
+  <h1>Products</h1>
+
+  <div class="content-wrapper">
+    <!-- Filters Sidebar -->
+    <aside class="filters-sidebar">
+      <h3>Filters</h3>
+
+      <div class="filter-group">
+        <label>Search</label>
+        <mat-form-field appearance="fill">
+          <input matInput [(ngModel)]="searchQuery" (change)="onFilterChange()" placeholder="Search products..." />
+        </mat-form-field>
+      </div>
+
+      <div class="filter-group">
+        <label>Price Range</label>
+        <div class="price-range">
+          <span>${{ minPrice }}</span>
+          <mat-slider class="price-slider" min="0" max="10000" step="100" [(ngModel)]="minPrice" (change)="onFilterChange()"></mat-slider>
+          <span>${{ maxPrice }}</span>
+          <mat-slider class="price-slider" min="0" max="10000" step="100" [(ngModel)]="maxPrice" (change)="onFilterChange()"></mat-slider>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <mat-form-field appearance="fill">
+          <mat-label>Sort By</mat-label>
+          <mat-select [(ngModel)]="sortBy" (change)="onSortChange()">
+            <mat-option value="relevance">Relevance</mat-option>
+            <mat-option value="price-low">Price: Low to High</mat-option>
+            <mat-option value="price-high">Price: High to Low</mat-option>
+            <mat-option value="newest">Newest</mat-option>
+            <mat-option value="rating">Highest Rated</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </aside>
+
+    <!-- Products Grid -->
+    <main class="products-main">
+      <app-loading-spinner *ngIf="isLoading" [isLoading]="true"></app-loading-spinner>
+
+      <app-error-message *ngIf="errorMessage" [error]="errorMessage"></app-error-message>
+
+      <div class="products-grid" *ngIf="!isLoading && products.length > 0">
+        <mat-card *ngFor="let product of products" class="product-card">
+          <img mat-card-image [src]="product.imageUrl" [alt]="product.name" />
+          <mat-card-content>
+            <h3>{{ product.name }}</h3>
+            <p class="description">{{ product.description | slice:0:60 }}...</p>
+            <div class="product-footer">
+              <span class="price">${{ product.price.toFixed(2) }}</span>
+              <div class="rating">
+                <mat-icon class="star">star</mat-icon>
+                <span>{{ product.rating }}/5</span>
+              </div>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <a [routerLink]="['/products', product.id]" mat-button>View Details</a>
+            <button mat-icon-button matTooltip="Add to Wishlist">
+              <mat-icon>favorite_border</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+
+      <div class="no-products" *ngIf="!isLoading && products.length === 0">
+        <mat-icon>shopping_bag</mat-icon>
+        <p>No products found</p>
+      </div>
+
+      <mat-paginator
+        *ngIf="!isLoading && products.length > 0"
+        [length]="totalElements"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[6, 12, 24]"
+        (page)="onPageChange($event)"
+      >
+      </mat-paginator>
+    </main>
+  </div>
+</div>

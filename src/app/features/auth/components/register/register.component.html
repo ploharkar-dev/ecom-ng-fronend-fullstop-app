@@ -1,0 +1,86 @@
+<div class="auth-container">
+  <mat-card class="auth-card">
+    <mat-card-header>
+      <mat-card-title>Create Account</mat-card-title>
+      <mat-card-subtitle>Join FULLSTOP and start shopping</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <app-error-message *ngIf="errorMessage" [error]="errorMessage"></app-error-message>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Full Name</mat-label>
+          <input matInput formControlName="name" placeholder="John Doe" />
+          <mat-error>{{ getNameError() }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" placeholder="your@email.com" />
+          <mat-error>{{ getEmailError() }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Phone (Optional)</mat-label>
+          <input matInput formControlName="phone" placeholder="1234567890" />
+          <mat-error>{{ getPhoneError() }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            [type]="hidePassword ? 'password' : 'text'"
+            placeholder="Min 6 characters"
+          />
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="togglePasswordVisibility()"
+          >
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error>{{ getPasswordError() }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Confirm Password</mat-label>
+          <input
+            matInput
+            formControlName="confirmPassword"
+            [type]="hideConfirmPassword ? 'password' : 'text'"
+            placeholder="Re-enter password"
+          />
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="toggleConfirmPasswordVisibility()"
+          >
+            <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error>{{ getConfirmPasswordError() }}</mat-error>
+        </mat-form-field>
+
+        <div class="form-actions">
+          <button
+            type="submit"
+            mat-raised-button
+            color="primary"
+            [disabled]="form.invalid || isLoading"
+          >
+            <mat-spinner *ngIf="isLoading" diameter="20" class="spinner"></mat-spinner>
+            {{ isLoading ? 'Creating account...' : 'Register' }}
+          </button>
+        </div>
+      </form>
+
+      <div class="auth-links">
+        <p>Already have an account? <a routerLink="/auth/login">Login here</a></p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

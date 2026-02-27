@@ -1,0 +1,75 @@
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Welcome to FULLSTOP</h1>
+      <p>Your one-stop shop for everything you need</p>
+      <a routerLink="/products" mat-raised-button color="primary" class="cta-button">
+        Shop Now
+      </a>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="featured-section">
+    <h2>Featured Products</h2>
+    
+    <app-loading-spinner *ngIf="isLoading" [isLoading]="true"></app-loading-spinner>
+    
+    <app-error-message *ngIf="errorMessage" [error]="errorMessage"></app-error-message>
+
+    <div class="products-grid" *ngIf="!isLoading && featuredProducts.length > 0">
+      <mat-card *ngFor="let product of featuredProducts" class="product-card">
+        <img mat-card-image [src]="product.imageUrl" [alt]="product.name" />
+        <mat-card-content>
+          <h3>{{ product.name }}</h3>
+          <p class="description">{{ product.description | slice:0:60 }}...</p>
+          <div class="product-footer">
+            <span class="price">${{ product.price.toFixed(2) }}</span>
+            <div class="rating">
+              <mat-icon class="star">star</mat-icon>
+              <span>{{ product.rating }}/5 ({{ product.reviewCount }})</span>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <a [routerLink]="['/products', product.id]" mat-button>View Details</a>
+          <button mat-icon-button matTooltip="Add to Wishlist">
+            <mat-icon>favorite_border</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </section>
+
+  <!-- Categories Showcase -->
+  <section class="categories-section">
+    <h2>Shop by Category</h2>
+    <div class="categories-grid">
+      <mat-card class="category-card">
+        <img mat-card-image src="https://via.placeholder.com/300x200?text=Electronics" alt="Electronics" />
+        <mat-card-content>
+          <h3>Electronics</h3>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="category-card">
+        <img mat-card-image src="https://via.placeholder.com/300x200?text=Fashion" alt="Fashion" />
+        <mat-card-content>
+          <h3>Fashion</h3>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="category-card">
+        <img mat-card-image src="https://via.placeholder.com/300x200?text=Home" alt="Home" />
+        <mat-card-content>
+          <h3>Home & Garden</h3>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="category-card">
+        <img mat-card-image src="https://via.placeholder.com/300x200?text=Sports" alt="Sports" />
+        <mat-card-content>
+          <h3>Sports</h3>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+</div>

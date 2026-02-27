@@ -1,0 +1,62 @@
+<div class="auth-container">
+  <mat-card class="auth-card">
+    <mat-card-header>
+      <mat-card-title>Login to Your Account</mat-card-title>
+      <mat-card-subtitle>Sign in to continue shopping</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <app-error-message *ngIf="errorMessage" [error]="errorMessage"></app-error-message>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" placeholder="your@email.com" />
+          <mat-error *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+            {{ getEmailError() }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            [type]="hidePassword ? 'password' : 'text'"
+            placeholder="Enter your password"
+          />
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hidePassword"
+          >
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+            {{ getPasswordError() }}
+          </mat-error>
+        </mat-form-field>
+
+        <div class="form-actions">
+          <button
+            type="submit"
+            mat-raised-button
+            color="primary"
+            [disabled]="form.invalid || isLoading"
+          >
+            <mat-spinner *ngIf="isLoading" diameter="20" class="spinner"></mat-spinner>
+            {{ isLoading ? 'Logging in...' : 'Login' }}
+          </button>
+        </div>
+      </form>
+
+      <div class="auth-links">
+        <p>Don't have an account? <a routerLink="/auth/register">Register here</a></p>
+        <p><a href="#">Forgot your password?</a></p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

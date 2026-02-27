@@ -1,0 +1,83 @@
+<div class="product-detail-container" *ngIf="!isLoading">
+  <app-error-message *ngIf="errorMessage" [error]="errorMessage"></app-error-message>
+
+  <div class="product-content" *ngIf="product">
+    <div class="product-image">
+      <img [src]="product.imageUrl" [alt]="product.name" />
+    </div>
+
+    <div class="product-info">
+      <h1>{{ product.name }}</h1>
+
+      <div class="rating">
+        <mat-icon class="star">star</mat-icon>
+        <span>{{ product.rating }}/5 ({{ product.reviewCount }} reviews)</span>
+      </div>
+
+      <div class="price-section">
+        <span class="price">${{ product.price.toFixed(2) }}</span>
+        <span class="stock" [class.low]="product.stock < 10">
+          {{ product.stock > 0 ? 'In Stock (' + product.stock + ')' : 'Out of Stock' }}
+        </span>
+      </div>
+
+      <p class="description">{{ product.description }}</p>
+
+      <div class="quantity-selector">
+        <label>Quantity:</label>
+        <div class="quantity-controls">
+          <button mat-icon-button (click)="decreaseQuantity()">
+            <mat-icon>remove</mat-icon>
+          </button>
+          <input matInput type="number" [(ngModel)]="quantity" [max]="product.stock" />
+          <button mat-icon-button (click)="increaseQuantity()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button mat-raised-button color="primary" (click)="addToCart()" [disabled]="product.stock === 0">
+          <mat-icon>shopping_cart</mat-icon>
+          Add to Cart
+        </button>
+        <button mat-raised-button (click)="addToWishlist()" matTooltip="Add to Wishlist">
+          <mat-icon>favorite_border</mat-icon>
+        </button>
+      </div>
+
+      <div class="product-details">
+        <h3>Product Details</h3>
+        <ul>
+          <li><strong>Category:</strong> Electronics</li>
+          <li><strong>SKU:</strong> {{ product.id }}</li>
+          <li><strong>Availability:</strong> {{ product.stock > 0 ? 'In Stock' : 'Out of Stock' }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reviews Section -->
+  <div class="reviews-section" *ngIf="product">
+    <h2>Customer Reviews</h2>
+    <app-loading-spinner *ngIf="reviewsLoading" [isLoading]="true" [message]="'Loading reviews...'"></app-loading-spinner>
+
+    <div class="reviews-list" *ngIf="!reviewsLoading && reviews.length > 0">
+      <div class="review-card" *ngFor="let review of reviews">
+        <div class="review-header">
+          <span class="reviewer-name">{{ review.userName }}</span>
+          <span class="review-rating">
+            <mat-icon class="star">star</mat-icon>
+            {{ review.rating }}/5
+          </span>
+        </div>
+        <p class="review-comment">{{ review.comment }}</p>
+        <small class="review-date">{{ review.createdAt | date:'short' }}</small>
+      </div>
+    </div>
+
+    <p *ngIf="!reviewsLoading && reviews.length === 0">No reviews yet. Be the first to review!</p>
+  </div>
+</div>
+
+<app-loading-spinner *ngIf="isLoading" [isLoading]="true"></app-loading-spinner>
